@@ -12,11 +12,24 @@ class DetailsPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('detalles'),
       ),
-      body: Center(child: Obx(() => Text('${c.count}'))),
+      body: ListView(
+        children: [
+          Center(
+              child: Container(
+            height: 350,
+            width: 350,
+            child: Card(
+              child: Column(
+                children: [Text('datos')],
+              ),
+            ),
+          ))
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => c.restart(),
-        backgroundColor: Color(0Xffd32f2f),
-        child: Icon(Icons.delete),
+        backgroundColor: Colors.green[600],
+        child: Icon(Icons.add_shopping_cart),
       ),
     );
   }

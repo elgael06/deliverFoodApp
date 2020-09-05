@@ -7,4 +7,9 @@ class FetchStore {
     http.Response data = await http.get('$_url/api/store/products/');
     return data.body;
   }
+
+  Future fetchProductoId(int id) async {
+    http.Response data = await http.get('$_url/api/store/products/$id');
+    return data.body;
+  }
 }

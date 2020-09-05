@@ -13,7 +13,9 @@ class IndexApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Obx(() => Text("Clicks: ${c.count}")),
+        title: Obx(() {
+          return Text("Productos Pedido: ${store.totalPedido}");
+        }),
       ),
       body: Obx(
         () => ListView(
@@ -44,7 +46,7 @@ class IndexApp extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => store.getProductos(),
-        child: Icon(Icons.add),
+        child: Icon(Icons.refresh),
       ),
     );
   }
@@ -59,7 +61,7 @@ class IndexApp extends StatelessWidget {
 
   void seleccionar(int id) {
     print('Id Producto => $id');
-    store.selectProduct(id);
+    store.resectProduct(id);
   }
 }
 
@@ -76,7 +78,7 @@ Widget indexApp() {
             child: Text('Ir a otra pagina'))),
     floatingActionButton: FloatingActionButton(
       onPressed: () => c.increment(),
-      child: Icon(Icons.add),
+      child: Icon(Icons.refresh),
     ),
   );
 }

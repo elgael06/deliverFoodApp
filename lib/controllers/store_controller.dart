@@ -3,18 +3,21 @@ import 'dart:convert';
 
 import 'package:deliverFood/apis/fetchstore.dart';
 import 'package:deliverFood/models/producto_store.dart';
+import 'package:deliverFood/models/producto_pedido.dart';
+import 'package:deliverFood/pages/details.dart';
 import 'package:get/get.dart';
 
 ///este es el controlador del store
 class StoreController extends GetxController {
   List<ProductoStore> productosStore = new List<ProductoStore>().obs;
   final producto = ProductoStore().obs;
+  List<ProductoPedido> productosPedido = new List<ProductoPedido>().obs;
 
   StoreController() {
     print('initial store controller');
     Timer(Duration(milliseconds: 500), getProductos);
   }
-
+  get totalPedido => productosPedido.length;
   Future getProductos() async {
     List<ProductoStore> lista = [];
     productosStore = [];
@@ -45,20 +48,41 @@ class StoreController extends GetxController {
     }
   }
 
-  void selectProduct(int id) {
+  set productoApedido(ProductoPedido prod) {
+    var existeLista =
+        productosPedido.firstWhere((element) => element.pk == prod.pk);
+    if (existeLista.isNullOrBlank) {
+      for (var item in productosPedido) {
+        if (item.pk == existeLista.pk) {
+          item.nProductos++;
+          break;
+        }
+      }
+    }
+    prod.nProductos = 1;
+    productosPedido.add(prod);
+  }
+
+  Future<void> resectProduct(int id) async {
     print(id);
-    var sel = productosStore.firstWhere((element) => element.pk == id);
-    print(sel.nombre);
+    var data = await FetchStore().fetchProductoId(id);
+    var res = jsonDecode(
+        data); //productosStore.firstWhere((element) => element.pk == id);
+    print(res['nombre']);
     producto.update((value) {
-      value.pk = sel.pk;
-      value.nombre = sel.nombre;
-      value.cantidad = sel.cantidad;
-      value.costo = sel.costo;
-      value.image = sel.image;
-      value.preparacion = sel.preparacion;
-      value.price = sel.price;
+      value.pk = res['pk'];
+      value.nombre = res['nombre'];
+      value.cantidad = res['cantidad'];
+      value.costo = res['costo'];
+      value.image = res['image'];
+      value.preparacion = res['preparacion'];
+      value.price = res['price'];
     });
+    print(res);
     print(producto.value.nombre);
     Get.forceAppUpdate();
+    Get.to(DetailsPage(),
+        transition: Transition.rightToLeft,
+        duration: Duration(milliseconds: 600));
   }
 }
