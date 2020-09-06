@@ -15,23 +15,29 @@ class DetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('tag ${store.producto.value.tag}');
     return Scaffold(
       appBar: AppBar(
         title: Text('detalles'),
       ),
-      body: Obx(
-        () => ListView(
-          children: [
-            Center(
-                child: Container(
-              width: 350,
-              child: Card(
+      body: Hero(
+        tag: store.producto.value.tag,
+        child: Obx(
+          () => ListView(
+            children: [
+              Center(
                 child: Column(
                   children: [
                     Container(
                       height: 300,
-                      child: Image(
-                          image: NetworkImage(store.producto.value.image)),
+                      child: FadeInImage(
+                        placeholder: AssetImage('assets/img/loading2.gif'),
+                        image: NetworkImage(
+                          store.producto.value.image,
+                        ),
+                        fit: BoxFit.fill,
+                        fadeInDuration: Duration(milliseconds: 800),
+                      ),
                     ),
                     Container(
                       height: 40,
@@ -74,8 +80,8 @@ class DetailsPage extends StatelessWidget {
                   ],
                 ),
               ),
-            ))
-          ],
+            ],
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(

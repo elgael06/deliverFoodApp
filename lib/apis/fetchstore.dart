@@ -1,7 +1,7 @@
 import 'package:http/http.dart' as http;
 
 class FetchStore {
-  final _url = 'http://api-deliver-web.mya-app.tech';
+  final _url = 'https://rocky-harbor-12898.herokuapp.com';
 
   Future fetchProductos() async {
     http.Response data = await http.get('$_url/api/store/products/');

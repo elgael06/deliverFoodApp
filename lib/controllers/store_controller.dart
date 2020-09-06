@@ -10,14 +10,12 @@ import 'package:get/get.dart';
 ///este es el controlador del store
 class StoreController extends GetxController {
   List<ProductoStore> productosStore = new List<ProductoStore>().obs;
+  List<ProductoStore> productosStoreOferta = new List<ProductoStore>().obs;
   final producto = ProductoStore().obs;
   List<ProductoPedido> productosPedido = new List<ProductoPedido>().obs;
 
-  StoreController() {
-    print('initial store controller');
-    Timer(Duration(milliseconds: 500), getProductos);
-  }
   get totalPedido => productosPedido.length;
+
   Future getProductos() async {
     List<ProductoStore> lista = [];
     productosStore = [];
@@ -37,11 +35,43 @@ class StoreController extends GetxController {
         dato.nombre = item['nombre'];
         dato.image = item['image'];
         dato.ingredientes = item['ingredientes'];
+        dato.tag = '${item['pk']}-prod';
 
         lista.add(dato);
       }
       productosStore = lista.obs;
       print(productosStore.length);
+      Get.forceAppUpdate();
+    } catch (err) {
+      print('object${err.toString()}');
+    }
+  }
+
+  Future getProductosOferta() async {
+    List<ProductoStore> lista = [];
+    productosStoreOferta = [];
+    Get.forceAppUpdate();
+    try {
+      var res = await FetchStore().fetchProductos();
+      var json = jsonDecode(res)['data'] as List;
+
+      for (var item in json) {
+        print(item);
+        ProductoStore dato = ProductoStore();
+
+        dato.pk = item['pk'];
+        dato.price = item['price'];
+        dato.costo = item['costo'];
+        dato.cantidad = item['cantidad'];
+        dato.nombre = item['nombre'];
+        dato.image = item['image'];
+        dato.ingredientes = item['ingredientes'];
+        dato.tag = '${item['pk']}-oferta';
+
+        lista.add(dato);
+      }
+      productosStoreOferta = lista.obs;
+      print(productosStoreOferta.length);
       Get.forceAppUpdate();
     } catch (err) {
       print('object${err.toString()}');
@@ -64,8 +94,23 @@ class StoreController extends GetxController {
     productosPedido.add(prod);
   }
 
-  Future<void> resectProduct(int id) async {
-    print(id);
+  Future<void> resectProduct(int id, String tag) async {
+    print('$id, $tag');
+
+    producto.update((value) {
+      value.pk = 0;
+      value.nombre = '';
+      value.cantidad = 0;
+      value.costo = 0;
+      value.image = 'https://i.ytimg.com/vi/uY8m5j432T8/maxresdefault.jpg';
+      value.preparacion = '';
+      value.ingredientes = '';
+      value.price = 0;
+      value.tag = tag;
+    });
+    Get.to(
+      DetailsPage(),
+    );
     var data = await FetchStore().fetchProductoId(id);
     var res = jsonDecode(
         data); //productosStore.firstWhere((element) => element.pk == id);
@@ -79,12 +124,10 @@ class StoreController extends GetxController {
       value.preparacion = res['preparacion'];
       value.ingredientes = res['ingredientes'];
       value.price = res['price'];
+      value.tag = tag;
     });
     print(res);
     print(producto.value.nombre);
     Get.forceAppUpdate();
-    Get.to(DetailsPage(),
-        transition: Transition.rightToLeft,
-        duration: Duration(milliseconds: 600));
   }
 }

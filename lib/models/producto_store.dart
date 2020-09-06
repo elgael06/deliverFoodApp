@@ -7,4 +7,5 @@ class ProductoStore {
   double costo;
   double price;
   int cantidad;
+  String tag;
 }

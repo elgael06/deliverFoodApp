@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:deliverFood/controllers/Controller.dart';
 import 'package:deliverFood/controllers/store_controller.dart';
 import 'package:deliverFood/pages/cartStore.dart';
@@ -9,6 +11,17 @@ class IndexApp extends StatelessWidget {
   final Controller c = Get.put(Controller());
   final StoreController store = Get.put(StoreController());
 
+  IndexApp() {
+    Timer(Duration(seconds: 2), () {
+      reload();
+    });
+  }
+
+  Future<void> reload() async {
+    store.getProductos();
+    store.getProductosOferta();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,29 +31,35 @@ class IndexApp extends StatelessWidget {
         }),
       ),
       body: Obx(() => RefreshIndicator(
-            onRefresh: () => store.getProductos(),
+            onRefresh: () => reload(),
             child: ListView(
               padding: EdgeInsets.only(top: 10, bottom: 10),
               children: [
                 Container(
                     margin: EdgeInsets.only(left: 20, top: 10),
-                    child: Text('Lista de productos')),
+                    child: Text(
+                      'Lista de productos',
+                      style: TextStyle(fontSize: 22),
+                    )),
                 Container(
                   child: ListView(
-                    children: _listaProductos(),
+                    children: _listaProductos(store.productosStore),
                     scrollDirection: Axis.horizontal,
                   ),
-                  height: 265,
+                  height: 235,
                 ),
                 Container(
                     margin: EdgeInsets.only(left: 20, top: 10),
-                    child: Text('Oferta de productos')),
+                    child: Text(
+                      'Lista oferta.',
+                      style: TextStyle(fontSize: 22),
+                    )),
                 Container(
                   child: ListView(
-                    children: _listaProductos(),
+                    children: _listaProductos(store.productosStoreOferta),
                     scrollDirection: Axis.horizontal,
                   ),
-                  height: 265,
+                  height: 235,
                 ),
               ],
             ),
@@ -73,15 +92,22 @@ class IndexApp extends StatelessWidget {
   }
 
 // metodos
-  List<Widget> _listaProductos() {
-    return store.productosStore
-        .map((e) => productoVistaGenerar(e.image, e.nombre, e.costo.toString(),
-            e.ingredientes, () => seleccionar(e.pk)))
-        .toList();
-  }
-
-  void seleccionar(int id) {
-    print('Id Producto => $id');
-    store.resectProduct(id);
+  List<Widget> _listaProductos(List lista) {
+    return lista.length > 0
+        ? lista
+            .map((e) => productoVistaGenerar(
+                e.image,
+                e.nombre,
+                e.costo.toString(),
+                e.ingredientes,
+                e.tag,
+                () => store.resectProduct(e.pk, e.tag)))
+            .toList()
+        : [
+            Center(
+              widthFactor: 5,
+              child: Text('Cargando...'),
+            )
+          ];
   }
 }
