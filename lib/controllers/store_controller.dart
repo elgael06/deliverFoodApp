@@ -48,18 +48,19 @@ class StoreController extends GetxController {
     }
   }
 
-  set productoApedido(ProductoPedido prod) {
-    var existeLista =
-        productosPedido.firstWhere((element) => element.pk == prod.pk);
-    if (existeLista.isNullOrBlank) {
-      for (var item in productosPedido) {
-        if (item.pk == existeLista.pk) {
-          item.nProductos++;
-          break;
-        }
-      }
-    }
-    prod.nProductos = 1;
+  void productoApedido(ProductoStore prod) {
+    ProductoPedido existeLista = ProductoPedido();
+
+    existeLista.pk = prod.pk;
+    existeLista.nombre = prod.nombre;
+    existeLista.preparacion = prod.preparacion;
+    existeLista.price = prod.price;
+    existeLista.cantidad = prod.cantidad;
+    existeLista.costo = prod.costo;
+    existeLista.image = prod.image;
+    existeLista.nProductos = 1;
+    existeLista.total = prod.costo;
+
     productosPedido.add(prod);
   }
 
@@ -76,6 +77,7 @@ class StoreController extends GetxController {
       value.costo = res['costo'];
       value.image = res['image'];
       value.preparacion = res['preparacion'];
+      value.ingredientes = res['ingredientes'];
       value.price = res['price'];
     });
     print(res);

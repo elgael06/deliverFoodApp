@@ -18,9 +18,9 @@ Widget productoVistaGenerar(String src, String nombre, String costo,
             ),
             Container(
               decoration: BoxDecoration(
-                color: Color.fromRGBO(255, 255, 255, 1),
+                color: Color.fromRGBO(255, 255, 255, .5),
               ),
-              height: 80,
+              height: 70,
               child: Stack(alignment: Alignment.bottomLeft, children: [
                 Row(children: [
                   Text(
@@ -45,6 +45,7 @@ Widget productoVistaGenerar(String src, String nombre, String costo,
               textDirection: TextDirection.ltr,
               children: [
                 RaisedButton(
+                  elevation: 2,
                   onPressed: event,
                   child: Text('Detalle'),
                   color: Color(0XFFFFF),
