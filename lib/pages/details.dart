@@ -17,73 +17,9 @@ class DetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     print('tag ${store.producto.value.tag}');
     return Scaffold(
-      appBar: AppBar(
-        title: Text('detalles'),
-      ),
       body: Hero(
-        tag: store.producto.value.tag,
-        child: Obx(
-          () => ListView(
-            children: [
-              Center(
-                child: Column(
-                  children: [
-                    Container(
-                      height: 300,
-                      child: FadeInImage(
-                        placeholder: AssetImage('assets/img/portada.jpg'),
-                        image: NetworkImage(
-                          store.producto.value.image,
-                        ),
-                        fit: BoxFit.fill,
-                        fadeInDuration: Duration(milliseconds: 800),
-                      ),
-                    ),
-                    Container(
-                      height: 40,
-                      child: Stack(
-                        alignment: Alignment.centerRight,
-                        children: [
-                          Text('Producto: ${store.producto.value.nombre}')
-                        ],
-                      ),
-                    ),
-                    Container(
-                      height: 40,
-                      child: Stack(
-                        alignment: Alignment.centerLeft,
-                        children: [
-                          Text('Precio: ${store.producto.value.costo}')
-                        ],
-                      ),
-                    ),
-                    Container(
-                      height: 40,
-                      child: Stack(
-                        alignment: Alignment.centerLeft,
-                        children: [
-                          Text(
-                              'Ingredientes: ${store.producto.value.ingredientes}')
-                        ],
-                      ),
-                    ),
-                    Container(
-                      height: 40,
-                      child: Stack(
-                        alignment: Alignment.centerLeft,
-                        children: [
-                          Text(
-                              'Prparacion: ${store.producto.value.preparacion}')
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+          tag: store.producto.value.tag,
+          child: Obx(() => _topAppBar(store.producto.value.image))),
       floatingActionButton: FloatingActionButton.extended(
         icon: Icon(Icons.add_shopping_cart),
         label: Text('Agregar'),
@@ -92,4 +28,60 @@ class DetailsPage extends StatelessWidget {
       ),
     );
   }
+
+  _bodyDetalle() => Center(
+        child: Column(
+          children: [
+            _informacio('Precio: ${store.producto.value.costo}'),
+            _informacio('Ingredientes: ${store.producto.value.ingredientes}'),
+            _informacio('Prparacion: ${store.producto.value.preparacion}')
+          ],
+        ),
+      );
+
+  _topAppBar(img) => NestedScrollView(
+      headerSliverBuilder: (BuildContext cont, bool innerBoxIsScrolled) {
+        return <Widget>[
+          SliverAppBar(
+            backgroundColor: Colors.amber,
+            expandedHeight: 400,
+            floating: true,
+            pinned: true,
+            elevation: 20,
+            title: Text(
+              store.producto.value.nombre,
+              style: TextStyle(color: Colors.white),
+            ),
+            shadowColor: Colors.blue,
+            actions: [
+              IconButton(
+                  icon: Icon(
+                    Icons.menu,
+                    color: Colors.white,
+                  ),
+                  onPressed: null)
+            ],
+            flexibleSpace: FlexibleSpaceBar(
+              collapseMode: CollapseMode.pin,
+              background: FadeInImage(
+                placeholder: AssetImage('assets/img/portada.jpg'),
+                image: NetworkImage(
+                  img,
+                ),
+                fit: BoxFit.fill,
+                fadeInDuration: Duration(milliseconds: 800),
+              ),
+            ),
+          ),
+        ];
+      },
+      body: _bodyDetalle());
+
+  _informacio(String text) => Container(
+        height: 40,
+        child: Stack(
+          alignment: Alignment.centerRight,
+          children: [Text(text)],
+        ),
+      );
 }
