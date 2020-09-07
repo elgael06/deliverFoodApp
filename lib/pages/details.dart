@@ -23,7 +23,7 @@ class DetailsPage extends StatelessWidget {
       floatingActionButton: FloatingActionButton.extended(
         icon: Icon(Icons.add_shopping_cart),
         label: Text('Agregar'),
-        onPressed: () => addToList(),
+        onPressed: () => store.producto.value.costo != 0 ? addToList() : null,
         backgroundColor: Colors.purple,
       ),
     );

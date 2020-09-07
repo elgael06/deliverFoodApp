@@ -97,7 +97,9 @@ class StoreController extends GetxController {
     existeLista.nProductos = 1;
     existeLista.total = prod.costo;
 
-    productosPedido.add(prod);
+    productosPedido.add(existeLista);
+    Get.forceAppUpdate();
+    Get.back();
   }
 
   Future<void> resectProduct(int id, String tag) async {

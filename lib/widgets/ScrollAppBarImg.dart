@@ -6,15 +6,15 @@ Widget scrollAppBarImg(String title, Widget img, Widget body) {
       headerSliverBuilder: (BuildContext cont, bool innerBoxIsScrolled) {
         return <Widget>[
           SliverAppBar(
-            expandedHeight: 200,
+            expandedHeight: 250,
             floating: false,
             pinned: true,
+            title: Text(
+              title,
+              style: TextStyle(color: Colors.white, fontSize: 16.0),
+            ),
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: true,
-              title: Text(
-                title,
-                style: TextStyle(color: Colors.white, fontSize: 16.0),
-              ),
               background: img,
             ),
           ),
