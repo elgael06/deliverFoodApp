@@ -28,7 +28,7 @@ Widget cartStore() {
       ),
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: Colors.green[800],
-        icon: Icon(Icons.directions_bike),
+        icon: Icon(Icons.send),
         label: Text(
           'Pedir',
           style: TextStyle(color: Colors.white),

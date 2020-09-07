@@ -74,6 +74,7 @@ class IndexApp extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () => Get.to(cartStore(), transition: Transition.downToUp),
         child: Icon(Icons.shopping_basket),
+        backgroundColor: Colors.brown,
       ),
       floatingActionButtonLocation:
           FloatingActionButtonLocation.miniCenterDocked,
