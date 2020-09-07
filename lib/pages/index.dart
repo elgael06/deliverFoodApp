@@ -106,7 +106,7 @@ class IndexApp extends StatelessWidget {
             .map((e) => productoVistaGenerar(
                 e.image,
                 e.nombre,
-                e.costo.toString(),
+                e.costo.toStringAsFixed(2),
                 e.ingredientes,
                 e.tag,
                 () => store.resectProduct(e.pk, e.tag)))

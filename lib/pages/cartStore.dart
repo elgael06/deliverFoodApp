@@ -21,7 +21,7 @@ Widget cartStore() {
                     alignment: Alignment.centerLeft,
                   ),
                   Align(
-                    child: Text(' \$${e.costo}'),
+                    child: Text(' \$${e.costo.toStringAsFixed(2)}'),
                     alignment: Alignment.centerRight,
                   )
                 ],
@@ -30,12 +30,12 @@ Widget cartStore() {
         .toList();
   }
 
-  double _totalProductos() {
+  String _totalProductos() {
     double total = 0;
     for (var item in store.productosPedido) {
       total += item.costo;
     }
-    return total;
+    return total.toStringAsFixed(2);
   }
 
   return Scaffold(
