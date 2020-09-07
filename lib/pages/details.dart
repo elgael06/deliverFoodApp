@@ -31,7 +31,7 @@ class DetailsPage extends StatelessWidget {
                     Container(
                       height: 300,
                       child: FadeInImage(
-                        placeholder: AssetImage('assets/img/loading2.gif'),
+                        placeholder: AssetImage('assets/img/portada.jpg'),
                         image: NetworkImage(
                           store.producto.value.image,
                         ),

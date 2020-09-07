@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:deliverFood/apis/fetchCategorias.dart';
 import 'package:deliverFood/apis/fetchstore.dart';
 import 'package:deliverFood/models/producto_store.dart';
 import 'package:deliverFood/models/producto_pedido.dart';
@@ -13,8 +14,13 @@ class StoreController extends GetxController {
   List<ProductoStore> productosStoreOferta = new List<ProductoStore>().obs;
   final producto = ProductoStore().obs;
   List<ProductoPedido> productosPedido = new List<ProductoPedido>().obs;
+  var categorias = [].obs;
 
   get totalPedido => productosPedido.length;
+  fethCategorias() {
+    categorias = getCategorias().obs;
+    Get.forceAppUpdate();
+  }
 
   Future getProductos() async {
     List<ProductoStore> lista = [];
@@ -102,7 +108,7 @@ class StoreController extends GetxController {
       value.nombre = '';
       value.cantidad = 0;
       value.costo = 0;
-      value.image = 'https://i.ytimg.com/vi/uY8m5j432T8/maxresdefault.jpg';
+      value.image = '';
       value.preparacion = '';
       value.ingredientes = '';
       value.price = 0;

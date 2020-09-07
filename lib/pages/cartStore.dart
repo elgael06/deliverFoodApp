@@ -28,9 +28,9 @@ Widget cartStore() {
       ),
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: Colors.green[800],
-        icon: Icon(Icons.attach_money),
+        icon: Icon(Icons.directions_bike),
         label: Text(
-          'Pagar',
+          'Pedir',
           style: TextStyle(color: Colors.white),
         ),
         isExtended: true,
