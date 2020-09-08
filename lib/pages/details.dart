@@ -35,7 +35,7 @@ class DetailsPage extends StatelessWidget {
             _informacio(
                 'Precio: ${store.producto.value.costo.toStringAsFixed(2)}'),
             _informacio('Ingredientes: ${store.producto.value.ingredientes}'),
-            _informacio('Prparacion: ${store.producto.value.preparacion}')
+            _informacio('Preparacion: ${store.producto.value.preparacion}')
           ],
         ),
       );

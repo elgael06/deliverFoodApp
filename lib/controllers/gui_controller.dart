@@ -7,34 +7,22 @@ class GuiController extends GetxController {
   var loadingProductsOferta = true.obs;
 
   statusPage(bool status) {
-    print(loadingPage);
-    loadingPage.update((value) {
-      value = status;
-    });
-    print(loadingPage);
+    loadingPage = status.obs;
+    Get.forceAppUpdate();
   }
 
   statusCategorias(bool status) {
-    print(loadingCategorias);
-    loadingCategorias.update((value) {
-      value = status;
-    });
-    print(loadingCategorias);
+    loadingCategorias = status.obs;
+    Get.forceAppUpdate();
   }
 
   statusProducts(bool status) {
-    print(loadingProducts);
-    loadingProducts.update((value) {
-      value = status;
-    });
-    print(loadingProducts);
+    loadingProducts = status.obs;
+    Get.forceAppUpdate();
   }
 
   statusProductsOferta(bool status) {
-    print(loadingProductsOferta);
-    loadingProductsOferta.update((value) {
-      value = status;
-    });
-    print(loadingProductsOferta);
+    loadingProductsOferta = status.obs;
+    Get.forceAppUpdate();
   }
 }

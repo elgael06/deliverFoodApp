@@ -105,15 +105,18 @@ class StoreController extends GetxController {
   Future<void> resectProduct(int id, String tag) async {
     print('$id, $tag');
 
+    var p = productosStore.firstWhere((element) => element.pk == id);
+
+    print(p.nombre);
     producto.update((value) {
-      value.pk = 0;
-      value.nombre = '';
-      value.cantidad = 0;
-      value.costo = 0;
-      value.image = '';
-      value.preparacion = '';
-      value.ingredientes = '';
-      value.price = 0;
+      value.pk = id;
+      value.nombre = p.nombre;
+      value.cantidad = p.cantidad;
+      value.costo = p.costo;
+      value.image = p.image;
+      value.preparacion = p.preparacion;
+      value.ingredientes = p.ingredientes;
+      value.price = p.price;
       value.tag = tag;
     });
     Get.to(

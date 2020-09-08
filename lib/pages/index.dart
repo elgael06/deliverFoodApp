@@ -9,6 +9,8 @@ import 'package:deliverFood/widgets/categoria_vista.dart';
 import 'package:deliverFood/widgets/producto_vista_general.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:loading/indicator/ball_pulse_indicator.dart';
+import 'package:loading/loading.dart';
 
 class IndexApp extends StatelessWidget {
   final Controller c = Get.put(Controller());
@@ -55,9 +57,7 @@ class IndexApp extends StatelessWidget {
               child: ListView(
                 padding: EdgeInsets.only(top: 10, bottom: 10),
                 children: [
-                  _containerLista(
-                      _listaProductos(_listaCategorias(store.categorias)),
-                      150,
+                  _containerLista(_listaCategorias(store.categorias), 150,
                       gui.loadingCategorias.value),
                   _titleList('Productos'),
                   _containerLista(_listaProductos(store.productosStore), 200,
@@ -98,10 +98,17 @@ class IndexApp extends StatelessWidget {
   }
 
 // metodos
-  _containerLista(List<Widget> lista, double h, bool status) => Container(
+  Widget _containerLista(List<Widget> lista, double h, bool status) =>
+      Container(
         child: status
             ? Container(
-                child: Text('cargando...'),
+                child: Center(
+                  child: Loading(
+                    indicator: BallPulseIndicator(),
+                    size: 50,
+                    color: Colors.green,
+                  ),
+                ),
               )
             : ListView(
                 children: lista,

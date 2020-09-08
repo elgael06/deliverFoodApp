@@ -14,7 +14,7 @@ dependencies:
   get:
   http: ^0.12.2
   toast: ^0.1.5
-
+  loading: ^1.0.2
   cupertino_icons: ^0.1.3
 
 dev_dependencies:
@@ -30,20 +30,20 @@ flutter:
     - assets/img/
     - assets/img/categorias/
 
-  fonts:
-    family: FiraCode
-    fonts:
-      - asset: fonts/FiraCode-Regular.ttf
-      - asset: fonts/FiraCode-Bold.ttf
-        style: bold
-      - asset: fonts/FiraCode-SemiBold.ttf
-        style: semiBold
-      - asset: assets/fonts/FiraCode-Retina.ttf
-        style: retina
-      - asset: assets/fonts/FiraCode-Medium.ttf
-        style: meduim
-      - asset: assets/fonts/FiraCode-Light.ttf
-        style: light
+  # fonts:
+  #   family: FiraCode
+  #   fonts:
+  #     - asset: fonts/FiraCode-Regular.ttf
+  #     - asset: fonts/FiraCode-Bold.ttf
+  #       style: bold
+  #     - asset: fonts/FiraCode-SemiBold.ttf
+  #       style: semiBold
+  #     - asset: assets/fonts/FiraCode-Retina.ttf
+  #       style: retina
+  #     - asset: assets/fonts/FiraCode-Medium.ttf
+  #       style: meduim
+  #     - asset: assets/fonts/FiraCode-Light.ttf
+  #       style: light
 
   # To add assets to your application, add an assets section, like this:
   # assets:
@@ -61,12 +61,11 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: FiraCode
-  #     fonts:
-  #       - asset: fonts/FiraCode-Regular.ttf
-  #       - asset: fonts/FiraCode-Light.ttf
-  #         style: italic
+  fonts:
+    - family: FiraCode
+      fonts:
+        - asset: assets/fonts/FiraCode-Regular.ttf
+        - asset: assets/fonts/FiraCode-Bold.ttf
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf
