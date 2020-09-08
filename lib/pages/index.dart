@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:deliverFood/controllers/Controller.dart';
+import 'package:deliverFood/controllers/gui_controller.dart';
 import 'package:deliverFood/controllers/store_controller.dart';
 import 'package:deliverFood/pages/cartStore.dart';
 import 'package:deliverFood/widgets/ScrollAppBarImg.dart';
@@ -12,17 +13,27 @@ import 'package:get/get.dart';
 class IndexApp extends StatelessWidget {
   final Controller c = Get.put(Controller());
   final StoreController store = Get.put(StoreController());
+  final GuiController gui = Get.put(GuiController());
 
   IndexApp() {
     Timer(Duration(seconds: 2), () {
       reload();
-      store.fethCategorias();
     });
   }
 
   Future<void> reload() async {
-    store.getProductos();
-    store.getProductosOferta();
+    gui.statusCategorias(true);
+    gui.statusProducts(true);
+    gui.statusProductsOferta(true);
+
+    store.fethCategorias();
+    gui.statusCategorias(false);
+
+    await store.getProductos();
+    gui.statusProducts(false);
+
+    await store.getProductosOferta();
+    gui.statusProductsOferta(false);
   }
 
   _imaageHeader() {
@@ -44,29 +55,16 @@ class IndexApp extends StatelessWidget {
               child: ListView(
                 padding: EdgeInsets.only(top: 10, bottom: 10),
                 children: [
-                  Container(
-                    child: ListView(
-                      children: _listaCategorias(store.categorias),
-                      scrollDirection: Axis.horizontal,
-                    ),
-                    height: 150,
-                  ),
+                  _containerLista(
+                      _listaProductos(_listaCategorias(store.categorias)),
+                      150,
+                      gui.loadingCategorias.value),
                   _titleList('Productos'),
-                  Container(
-                    child: ListView(
-                      children: _listaProductos(store.productosStore),
-                      scrollDirection: Axis.horizontal,
-                    ),
-                    height: 200,
-                  ),
+                  _containerLista(_listaProductos(store.productosStore), 200,
+                      gui.loadingProducts.value),
                   _titleList('Oferta'),
-                  Container(
-                    child: ListView(
-                      children: _listaProductos(store.productosStoreOferta),
-                      scrollDirection: Axis.horizontal,
-                    ),
-                    height: 200,
-                  ),
+                  _containerLista(_listaProductos(store.productosStoreOferta),
+                      200, gui.loadingProductsOferta.value),
                 ],
               ),
             )),
@@ -100,6 +98,17 @@ class IndexApp extends StatelessWidget {
   }
 
 // metodos
+  _containerLista(List<Widget> lista, double h, bool status) => Container(
+        child: status
+            ? Container(
+                child: Text('cargando...'),
+              )
+            : ListView(
+                children: lista,
+                scrollDirection: Axis.horizontal,
+              ),
+        height: h,
+      );
   List<Widget> _listaProductos(List lista) {
     return lista.length > 0
         ? lista
@@ -114,7 +123,7 @@ class IndexApp extends StatelessWidget {
         : [
             Center(
               widthFactor: 5,
-              child: Text('Cargando...'),
+              child: Text('Sin datos'),
             )
           ];
   }

@@ -35,6 +35,7 @@ Widget textoProd(valor) {
     style: TextStyle(
         color: Colors.brown,
         fontSize: 28,
+        fontFamily: 'FiraCode',
         fontWeight: FontWeight.bold,
         shadows: [
           Shadow(
