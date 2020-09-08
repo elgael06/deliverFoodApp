@@ -1,16 +1,32 @@
 # deliverFood
 
-A new Flutter project.
+A new Flutter project for example delivery of food.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+- screenshot
+    
+<div style={{display:'flex',justifyContent:'center',margin:' 10px -6px',flexDirection: 'row',flexWrap:'wrap'}}>
+    
+<div style={{margin:'0 20px'}}>
+<b>Home.</b>
+<hr/>
+<img src='./assets/img/screenShot/Screenshot_2020-09-08-12-58-39-004_com.example.deliverFood.jpg' height='180' />
+</div>
 
-A few resources to get you started if this is your first Flutter project:
+<div style={{margin:'0 20px'}}>
+<b>Detaills.</b>
+<hr/>
+<img src='./assets/img/screenShot/Screenshot_2020-09-08-12-58-47-666_com.example.deliverFood.jpg' height='180' />
+</div>
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+<div style={{margin:'0 20px'}}>
+<b>Products list.</b>
+<hr/>
+<img src='./assets/img/screenShot/Screenshot_2020-09-08-12-59-10-434_com.example.deliverFood.jpg' height='180' />
+</div>
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+</div>
+
+
+
