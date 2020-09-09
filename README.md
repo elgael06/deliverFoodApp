@@ -25,6 +25,11 @@ A new Flutter project for example delivery of food.
 <hr/>
 <img src='./assets/img/screenShot/Screenshot_2020-09-08-12-59-10-434_com.example.deliverFood.jpg' />
 </div>
+<div style={{margin:'0 20px',width:140}}>
+<b>Category.</b>
+<hr/>
+<img src='./assets/img/screenShot/Screenshot_2020-09-08-19-42-21-161_com.example.deliverFood.jpg' />
+</div>
 
 </div>
 

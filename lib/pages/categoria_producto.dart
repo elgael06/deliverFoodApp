@@ -39,28 +39,30 @@ Widget categoriaProductos() {
   _topAppBar(body) => NestedScrollView(
       headerSliverBuilder: (BuildContext cont, bool innerBoxIsScrolled) {
         return <Widget>[
-          SliverAppBar(
-            backgroundColor: Colors.brown,
-            expandedHeight: 200,
-            floating: true,
-            pinned: true,
-            elevation: 20,
-            title: Text(
-              store.nomCategoria.value,
-              style: TextStyle(color: Colors.white),
-            ),
-            shadowColor: Colors.blue,
-            flexibleSpace: FlexibleSpaceBar(
-              collapseMode: CollapseMode.pin,
-              background: FadeInImage(
-                placeholder: AssetImage('assets/img/portada.jpg'),
-                image: AssetImage(
-                    'assets/img/categorias/${store.imgCategoria.value}'),
-                fit: BoxFit.fill,
-                fadeInDuration: Duration(milliseconds: 800),
+          Obx(
+            () => SliverAppBar(
+              backgroundColor: Colors.purple[600],
+              expandedHeight: 200,
+              floating: true,
+              pinned: true,
+              elevation: 20,
+              title: Text(
+                store.nomCategoria.value,
+                style: TextStyle(color: Colors.white),
+              ),
+              shadowColor: Colors.blue,
+              flexibleSpace: FlexibleSpaceBar(
+                collapseMode: CollapseMode.pin,
+                background: FadeInImage(
+                  placeholder: AssetImage('assets/img/portada.jpg'),
+                  image: AssetImage(
+                      'assets/img/categorias/${store.imgCategoria.value}'),
+                  fit: BoxFit.fill,
+                  fadeInDuration: Duration(milliseconds: 800),
+                ),
               ),
             ),
-          ),
+          )
         ];
       },
       body: body);

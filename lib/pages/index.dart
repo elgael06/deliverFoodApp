@@ -4,13 +4,12 @@ import 'package:deliverFood/controllers/Controller.dart';
 import 'package:deliverFood/controllers/gui_controller.dart';
 import 'package:deliverFood/controllers/store_controller.dart';
 import 'package:deliverFood/pages/cartStore.dart';
-import 'package:deliverFood/pages/categoria_producto.dart';
 import 'package:deliverFood/widgets/ScrollAppBarImg.dart';
 import 'package:deliverFood/widgets/categoria_vista.dart';
 import 'package:deliverFood/widgets/producto_vista_general.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:loading/indicator/ball_pulse_indicator.dart';
+import 'package:loading/indicator/ball_grid_pulse_indicator.dart';
 import 'package:loading/loading.dart';
 
 class IndexApp extends StatelessWidget {
@@ -25,7 +24,7 @@ class IndexApp extends StatelessWidget {
   }
 
   Future<void> reload() async {
-    gui.statusCategorias(true);
+    // gui.statusCategorias(true);
     gui.statusProducts(true);
     gui.statusProductsOferta(true);
 
@@ -105,9 +104,9 @@ class IndexApp extends StatelessWidget {
             ? Container(
                 child: Center(
                   child: Loading(
-                    indicator: BallPulseIndicator(),
+                    indicator: BallGridPulseIndicator(),
                     size: 50,
-                    color: Colors.green,
+                    color: Colors.purple,
                   ),
                 ),
               )
@@ -169,8 +168,11 @@ class IndexApp extends StatelessWidget {
 
   Future selecCategoria(id) async {
     print('categoria $id');
+
     gui.statusPage(true);
+    gui.statusCategorias(true);
     await store.obtenerPorCategiria(id);
+    gui.statusCategorias(false);
     gui.statusPage(false);
   }
 }

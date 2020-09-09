@@ -37,7 +37,6 @@ class StoreController extends GetxController {
       var json = jsonDecode(res)['data'] as List;
 
       for (var item in json) {
-        print(item);
         ProductoStore dato = ProductoStore();
 
         dato.pk = item['pk'];
@@ -52,7 +51,6 @@ class StoreController extends GetxController {
         lista.add(dato);
       }
       productosStore = lista.obs;
-      print(productosStore.length);
       Get.forceAppUpdate();
     } catch (err) {
       print('object${err.toString()}');
@@ -68,7 +66,6 @@ class StoreController extends GetxController {
       var json = jsonDecode(res)['data'] as List;
 
       for (var item in json) {
-        print(item);
         ProductoStore dato = ProductoStore();
 
         dato.pk = item['pk'];
@@ -83,7 +80,6 @@ class StoreController extends GetxController {
         lista.add(dato);
       }
       productosStoreOferta = lista.obs;
-      print(productosStoreOferta.length);
       Get.forceAppUpdate();
     } catch (err) {
       print('object${err.toString()}');
@@ -109,11 +105,8 @@ class StoreController extends GetxController {
   }
 
   Future<void> resectProduct(int id, String tag) async {
-    print('$id, $tag');
-
     var p = productosStore.firstWhere((element) => element.pk == id);
 
-    print(p.nombre);
     producto.update((value) {
       value.pk = id;
       value.nombre = p.nombre;
@@ -131,7 +124,6 @@ class StoreController extends GetxController {
     var data = await FetchStore().fetchProductoId(id);
     var res = jsonDecode(
         data); //productosStore.firstWhere((element) => element.pk == id);
-    print(res['nombre']);
     producto.update((value) {
       value.pk = res['pk'];
       value.nombre = res['nombre'];
@@ -143,16 +135,11 @@ class StoreController extends GetxController {
       value.price = res['price'];
       value.tag = tag;
     });
-    print(res);
-    print(producto.value.nombre);
     Get.forceAppUpdate();
   }
 
   Future<void> obtenerPorCategiria(int id) async {
-    print('id categiria $id');
-
     var cat = categorias.firstWhere((item) => item['pk'] == id);
-    print(cat);
     idCategoria = id.obs;
     imgCategoria = cat['image'].toString().obs;
     nomCategoria = cat['nombre'].toString().obs;
@@ -164,7 +151,6 @@ class StoreController extends GetxController {
       var json = jsonDecode(res)['data'] as List;
 
       for (var item in json) {
-        print(item);
         ProductoStore dato = ProductoStore();
 
         dato.pk = item['pk'];
@@ -179,7 +165,6 @@ class StoreController extends GetxController {
         lista.add(dato);
       }
       for (var item in json) {
-        print(item);
         ProductoStore dato = ProductoStore();
 
         dato.pk = item['pk'];
@@ -196,10 +181,7 @@ class StoreController extends GetxController {
 
       productosCategoria = lista.obs;
       Get.to(categoriaProductos());
-      print(productosCategoria.length);
       Get.forceAppUpdate();
-    } catch (err) {
-      print('object${err.toString()}');
-    }
+    } catch (err) {}
   }
 }
