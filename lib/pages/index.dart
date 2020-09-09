@@ -4,6 +4,7 @@ import 'package:deliverFood/controllers/Controller.dart';
 import 'package:deliverFood/controllers/gui_controller.dart';
 import 'package:deliverFood/controllers/store_controller.dart';
 import 'package:deliverFood/pages/cartStore.dart';
+import 'package:deliverFood/pages/categoria_producto.dart';
 import 'package:deliverFood/widgets/ScrollAppBarImg.dart';
 import 'package:deliverFood/widgets/categoria_vista.dart';
 import 'package:deliverFood/widgets/producto_vista_general.dart';
@@ -166,7 +167,10 @@ class IndexApp extends StatelessWidget {
             ]),
       ));
 
-  selecCategoria(id) {
+  Future selecCategoria(id) async {
     print('categoria $id');
+    gui.statusPage(true);
+    await store.obtenerPorCategiria(id);
+    gui.statusPage(false);
   }
 }

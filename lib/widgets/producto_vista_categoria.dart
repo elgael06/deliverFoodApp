@@ -2,20 +2,25 @@ import 'package:deliverFood/widgets/imagen_fondo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-Widget productoVistaGenerar(String src, String nombre, String costo,
+Widget productoVistacategoria(String src, String nombre, String costo,
     String preparacion, String tag, Function event) {
-  return Hero(
-      tag: tag,
-      child: GestureDetector(
-          onTap: event,
-          child: Card(
-              color: Colors.amber,
-              margin: EdgeInsets.only(top: 2, right: 10, bottom: 10),
-              elevation: 5.0,
-              child: Stack(alignment: Alignment.topCenter, children: [
-                imagenFondo(src, 100, 200),
-                others(nombre, costo, preparacion, tag, event)
-              ]))));
+  return Container(
+      height: 200,
+      width: 180,
+      child: Hero(
+          tag: tag,
+          child: GestureDetector(
+              onTap: event,
+              child: Card(
+                  color: Colors.amber,
+                  margin:
+                      EdgeInsets.only(top: 2, bottom: 10, left: 3, right: 3),
+                  elevation: 5.0,
+                  child: Container(
+                      child: Stack(alignment: Alignment.topCenter, children: [
+                    imagenFondo(src, 100, 200),
+                    others(nombre, costo, preparacion, tag, event)
+                  ]))))));
 }
 
 Widget others(String nombre, String costo, String preparacion, String tag,

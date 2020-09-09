@@ -5,16 +5,22 @@ import 'package:deliverFood/apis/fetchCategorias.dart';
 import 'package:deliverFood/apis/fetchstore.dart';
 import 'package:deliverFood/models/producto_store.dart';
 import 'package:deliverFood/models/producto_pedido.dart';
+import 'package:deliverFood/pages/categoria_producto.dart';
 import 'package:deliverFood/pages/details.dart';
 import 'package:get/get.dart';
 
 ///este es el controlador del store
 class StoreController extends GetxController {
+  var idCategoria = 0.obs;
+  var imgCategoria = ''.obs;
+  var nomCategoria = ''.obs;
   List<ProductoStore> productosStore = new List<ProductoStore>().obs;
   List<ProductoStore> productosStoreOferta = new List<ProductoStore>().obs;
+  List<ProductoStore> productosCategoria = new List<ProductoStore>().obs;
   final producto = ProductoStore().obs;
   List<ProductoPedido> productosPedido = new List<ProductoPedido>().obs;
   var categorias = [].obs;
+  var categoriaSelect = {}.obs;
 
   get totalPedido => productosPedido.length;
   fethCategorias() {
@@ -140,5 +146,60 @@ class StoreController extends GetxController {
     print(res);
     print(producto.value.nombre);
     Get.forceAppUpdate();
+  }
+
+  Future<void> obtenerPorCategiria(int id) async {
+    print('id categiria $id');
+
+    var cat = categorias.firstWhere((item) => item['pk'] == id);
+    print(cat);
+    idCategoria = id.obs;
+    imgCategoria = cat['image'].toString().obs;
+    nomCategoria = cat['nombre'].toString().obs;
+    List<ProductoStore> lista = [];
+    productosCategoria = [];
+    Get.forceAppUpdate();
+    try {
+      var res = await FetchStore().fetchProductos();
+      var json = jsonDecode(res)['data'] as List;
+
+      for (var item in json) {
+        print(item);
+        ProductoStore dato = ProductoStore();
+
+        dato.pk = item['pk'];
+        dato.price = item['price'];
+        dato.costo = item['costo'];
+        dato.cantidad = item['cantidad'];
+        dato.nombre = item['nombre'];
+        dato.image = item['image'];
+        dato.ingredientes = item['ingredientes'];
+        dato.tag = '${item['pk']}-cat';
+
+        lista.add(dato);
+      }
+      for (var item in json) {
+        print(item);
+        ProductoStore dato = ProductoStore();
+
+        dato.pk = item['pk'];
+        dato.price = item['price'];
+        dato.costo = item['costo'];
+        dato.cantidad = item['cantidad'];
+        dato.nombre = item['nombre'];
+        dato.image = item['image'];
+        dato.ingredientes = item['ingredientes'];
+        dato.tag = '${item['pk']}-cat_';
+
+        lista.add(dato);
+      }
+
+      productosCategoria = lista.obs;
+      Get.to(categoriaProductos());
+      print(productosCategoria.length);
+      Get.forceAppUpdate();
+    } catch (err) {
+      print('object${err.toString()}');
+    }
   }
 }

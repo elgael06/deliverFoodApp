@@ -12,10 +12,12 @@ Widget productoVistaGenerar(String src, String nombre, String costo,
               color: Colors.amber,
               margin: EdgeInsets.only(top: 2, right: 10, bottom: 10),
               elevation: 5.0,
-              child: Stack(alignment: Alignment.topCenter, children: [
-                imagenFondo(src, 100, 200),
-                others(nombre, costo, preparacion, tag, event)
-              ]))));
+              child: Container(
+                  height: 230,
+                  child: Stack(alignment: Alignment.topCenter, children: [
+                    imagenFondo(src, 100, 200),
+                    others(nombre, costo, preparacion, tag, event)
+                  ])))));
 }
 
 Widget others(String nombre, String costo, String preparacion, String tag,
